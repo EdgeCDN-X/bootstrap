@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: edgecdnx-cache-ssd
+  name: edgecdnx-cache
   namespace: argocd
 spec:
   syncPolicy:
@@ -14,22 +14,39 @@ spec:
           chartVersion: 4.12.1
           chartRepository: https://kubernetes.github.io/ingress-nginx
           namespace: edgecdnx-cache
-          tier: edge
           cache: ssd
-      selector:
-        matchExpressions:
-          - key: edgecdnx.com/caching
-            operator: In
-            values:
-              - "true"
-              - "yes"
-          - key: edgecdnx.com/tier
-            operator: In
-            values:
-              - edge
+        selector:
+          matchExpressions:
+            - key: edgecdnx.com/caching
+              operator: In
+              values:
+                - "true"
+                - "yes"
+            - key: edgecdnx.com/tier
+              operator: In
+              values:
+                - edge
+    - clusters:
+        values:
+          chart: ingress-nginx
+          chartVersion: 4.12.1
+          chartRepository: https://kubernetes.github.io/ingress-nginx
+          namespace: edgecdnx-cache
+          cache: ram
+        selector:
+          matchExpressions:
+            - key: edgecdnx.com/caching
+              operator: In
+              values:
+                - "true"
+                - "yes"
+            - key: edgecdnx.com/tier
+              operator: In
+              values:
+                - edge
   template:
     metadata:
-      name: "edgecdnx-cache-ssd-{{ metadata.labels.'edgecdnx.com/location' }}-{{ metadata.labels.'edgecdnx.com/tier' }}"
+      name: "edgecdnx-cache-{{ .Values.cache }}-{{ metadata.labels.'edgecdnx.com/location' }}-{{ .Values.tier }}"
     spec:
       project: edgecdnx
       sources:
@@ -51,26 +68,28 @@ spec:
                 ingressClassResource:
                   enabled: true
                   default: false
-                  name: "edgecdnx-cache-ssd"
-                  controllerValue: "edgecdnx.com/cache-ssd"
+                  name: "edgecdnx-cache-{{ .Values.cache }}"
+                  controllerValue: "edgecdnx.com/cache-{{ .Values.cache }}"
                 service:
                   enabled: false
                 hostPort:
                   enabled: true
                 kind: DaemonSet
+                nodeSelector:
+                  edgecdnx.com/cache: "{{ .Values.cache }}"
                 extraVolumes:
                   - name: nginx-cache
                     hostPath:
-                      path: /var/lib/nginx-cache-ssd
+                      path: "/var/lib/nginx-cache-{{ .Values.cache }}"
                       type: Directory
                 extraVolumeMounts:
                   - name: nginx-cache
-                    mountPath: /var/lib/nginx-cache-ssd
+                    mountPath: "/var/lib/nginx-cache-{{ .Values.cache }}"
                 config:
                   proxy-buffering: "on"
                   annotations-risk-level: "Critical"
                   http-snippet: |
-                    proxy_cache_path /var/lib/nginx-cache-ssd levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
+                    proxy_cache_path /var/lib/nginx-cache-{{ .Values.cache }} levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
       destination:
         namespace: "{{values.namespace}}"
         server: "{{ server }}"
