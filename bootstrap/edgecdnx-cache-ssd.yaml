@@ -1,0 +1,82 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: edgecdnx-cache-ssd
+  namespace: argocd
+spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - clusters:
+        values:
+          chart: ingress-nginx
+          chartVersion: 4.12.1
+          chartRepository: https://kubernetes.github.io/ingress-nginx
+          namespace: edgecdnx-cache
+          tier: edge
+          cache: ssd
+      selector:
+        matchExpressions:
+          - key: edgecdnx.com/caching
+            operator: In
+            values:
+              - "true"
+              - "yes"
+          - key: edgecdnx.com/tier
+            operator: In
+            values:
+              - edge
+  template:
+    metadata:
+      name: "edgecdnx-cache-ssd-{{ metadata.labels.'edgecdnx.com/location' }}-{{ metadata.labels.'edgecdnx.com/tier' }}"
+    spec:
+      project: edgecdnx
+      sources:
+        - chart: "{{values.chart}}"
+          repoURL: "{{values.chartRepository}}"
+          targetRevision: "{{values.chartVersion}}"
+          helm:
+            releaseName: ingress-nginx
+            ignoreMissingValueFiles: true
+            valuesObject:
+              controller:
+                metrics:
+                  enabled: false
+                  serviceMonitor:
+                    enabled: false # TODO
+                    additionalLabels:
+                      release: prometheus-stack
+                allowSnippetAnnotations: true
+                ingressClassResource:
+                  enabled: true
+                  default: false
+                  name: "edgecdnx-cache-ssd"
+                  controllerValue: "edgecdnx.com/cache-ssd"
+                service:
+                  enabled: false
+                hostPort:
+                  enabled: true
+                kind: DaemonSet
+                extraVolumes:
+                  - name: nginx-cache
+                    hostPath:
+                      path: /var/lib/nginx-cache-ssd
+                      type: Directory
+                extraVolumeMounts:
+                  - name: nginx-cache
+                    mountPath: /var/lib/nginx-cache-ssd
+                config:
+                  proxy-buffering: "on"
+                  annotations-risk-level: "Critical"
+                  http-snippet: |
+                    proxy_cache_path /var/lib/nginx-cache-ssd levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
+      destination:
+        namespace: "{{values.namespace}}"
+        server: "{{ server }}"
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.
+      ignoreDifferences: []
