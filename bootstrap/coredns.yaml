@@ -15,7 +15,7 @@ spec:
       valuesObject:
         serviceType: LoadBalancer
         isClusterService: false
-        replicas: 3
+        replicaCount: 3
         servers:
           - port: 53
             plugins:
