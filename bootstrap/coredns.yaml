@@ -31,7 +31,7 @@ spec:
           - filename: cdn.edgecdnx.com.zone
             contents: |
               $ORIGIN cdn.edgecdnx.com.
-              $TTL 86400 ; default time-to-live for this zone
+              $TTL 300
 
               @   IN  SOA     ns.cdn.edgecdnx.com. noc.dns.example.org. (
                       2020080302  ;Serial
@@ -41,9 +41,9 @@ spec:
                       3600        ;Negative response caching TTL
               )
 
-              NS                  ns.cdn.edgecdnx.com.
-              ns           A      192.168.88.25
-              eu-west-1    A      192.168.100.35
+                          IN           NS                  ns.cdn.edgecdnx.com.
+              ns          IN           A                   192.168.88.25
+              eu-west-1   IN           A                   192.168.100.35
   destination:
     server: "https://kubernetes.default.svc"
     namespace: edgecdnx
