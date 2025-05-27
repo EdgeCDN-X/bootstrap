@@ -44,6 +44,7 @@ spec:
                           IN           NS                  ns.cdn.edgecdnx.com.
               ns          IN           A                   188.167.203.182
               eu-west-1   IN           A                   192.168.100.35
+              @           IN           A                   192.168.100.20
         livenessProbe:
           enabled: true
           initialDelaySeconds: 5
