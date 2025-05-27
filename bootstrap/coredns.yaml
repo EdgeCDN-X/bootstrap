@@ -20,7 +20,7 @@ spec:
             plugins:
               - name: ready
               - name: file 
-                parameters: cdn.edgecdnx.com.zone
+                parameters: /etc/coredns/cdn.edgecdnx.com.zone
             zones:
             - zone: "cdn.edgecdnx.com"
         zoneFiles:
