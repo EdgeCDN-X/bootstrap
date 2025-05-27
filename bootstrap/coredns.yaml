@@ -42,7 +42,7 @@ spec:
               )
 
                                   IN      NS  ns.cdn.edgecdnx.com.
-              eu-west-1.cdn.edgecdnx.com.    A
+              eu-west-1    A
   destination:
     server: "https://kubernetes.default.svc"
     namespace: edgecdnx
