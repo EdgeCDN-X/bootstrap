@@ -44,6 +44,14 @@ spec:
                           IN           NS                  ns.cdn.edgecdnx.com.
               ns          IN           A                   192.168.88.25
               eu-west-1   IN           A                   192.168.100.35
+        livenessProbe:
+          enabled: true
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          enabled: true
+          initialDelaySeconds: 5
+          periodSeconds: 10
   destination:
     server: "https://kubernetes.default.svc"
     namespace: edgecdnx
