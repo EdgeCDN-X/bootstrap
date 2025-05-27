@@ -1,0 +1,47 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edgecdnx-cache
+  namespace: cdn
+spec:
+  project: edgecdnx
+  source:
+    chart: coredns
+    repoURL: https://coredns.github.io/helm
+    targetRevision: 1.42.2
+    helm:
+      releaseName: edgecdnx-coredns
+      valuesObject:
+        serviceType: LoadBalancer
+        isClusterService: false
+        servers:
+          - port: 53
+            plugins:
+              - name: ready
+              - name: file 
+                parameters: cdn.edgecdnx.com.zone
+            zones:
+            - zone: "cdn.edgecdnx.com"
+        zoneFiles:
+          - filename: cdn.edgecdnx.com.zone
+            domain: cdn.edgecdnx.com
+            content: |
+              $ORIGIN cdn.edgecdnx.com.
+              $TTL 86400 ; default time-to-live for this zone
+
+              cdn.edgecdnx.com.   IN  SOA     ns.cdn.edgecdnx.com. noc.dns.example.org. (
+                      2020080302  ;Serial
+                      7200        ;Refresh
+                      3600        ;Retry
+                      1209600     ;Expire
+                      3600        ;Negative response caching TTL
+              )
+
+              NS      cdn.edgecdnx.com.
+              eu-west-1.cdn.edgecdnx.com.    A
+
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: edgecdnx
