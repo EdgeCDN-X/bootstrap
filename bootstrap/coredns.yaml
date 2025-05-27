@@ -37,7 +37,7 @@ spec:
                       3600        ;Negative response caching TTL
               )
 
-              NS      cdn.edgecdnx.com.
+                                  IN      NS  ns.cdn.edgecdnx.com.
               eu-west-1.cdn.edgecdnx.com.    A
   destination:
     server: "https://kubernetes.default.svc"
