@@ -25,8 +25,7 @@ spec:
             - zone: "cdn.edgecdnx.com"
         zoneFiles:
           - filename: cdn.edgecdnx.com.zone
-            domain: cdn.edgecdnx.com
-            content: |
+            contents: |
               $ORIGIN cdn.edgecdnx.com.
               $TTL 86400 ; default time-to-live for this zone
 
