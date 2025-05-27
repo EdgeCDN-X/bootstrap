@@ -19,6 +19,9 @@ spec:
           - port: 53
             plugins:
               - name: ready
+              - name: health
+                configBlock: |-
+                  lameduck 10s
               - name: file 
                 parameters: /etc/coredns/cdn.edgecdnx.com.zone
             zones:
