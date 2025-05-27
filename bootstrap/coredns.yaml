@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: edgecdnx-cache
-  namespace: cdn
+  namespace: edgecdnx
 spec:
   project: edgecdnx
   source:
@@ -40,8 +40,6 @@ spec:
 
               NS      cdn.edgecdnx.com.
               eu-west-1.cdn.edgecdnx.com.    A
-
-
   destination:
     server: "https://kubernetes.default.svc"
     namespace: edgecdnx
