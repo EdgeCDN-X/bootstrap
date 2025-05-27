@@ -42,7 +42,7 @@ spec:
               )
 
                           IN           NS                  ns.cdn.edgecdnx.com.
-              ns          IN           A                   192.168.88.25
+              ns          IN           A                   188.167.203.182
               eu-west-1   IN           A                   192.168.100.35
         livenessProbe:
           enabled: true
