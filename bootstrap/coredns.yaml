@@ -19,6 +19,7 @@ spec:
           - port: 53
             plugins:
               - name: ready
+              - name: debug
               - name: health
                 configBlock: |-
                   lameduck 10s
