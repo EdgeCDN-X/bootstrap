@@ -13,6 +13,9 @@ spec:
     helm:
       releaseName: edgecdnx-coredns
       valuesObject:
+        image:
+          repository: fr6nco/coredns
+          tag: 1.12.1-beta.1
         serviceType: LoadBalancer
         isClusterService: false
         replicaCount: 3
