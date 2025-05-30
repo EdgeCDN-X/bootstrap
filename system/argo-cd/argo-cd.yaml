@@ -20,7 +20,7 @@ spec:
           server:
             ingress:
               enabled: true
-              ingressClassName: nginx-internal
+              ingressClassName: nginx
               tls: false
               hostname: 'argocd.control.k8s.edgecdnx.com'
           controller:
