@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+spec:
+  project: default
+  sources:
+    - chart: argo-cd
+      repoURL: https://argoproj.github.io/argo-helm
+      targetRevision: 8.0.13
+      helm:
+        releaseName: argocd
+        valuesObject:
+          configs:
+            params:
+              server.insecure: true
+            cm:
+              exec.enabled: true
+          server:
+            ingress:
+              enabled: true
+              ingressClassName: nginx-internal
+              tls: false
+              hostname: 'argocd.control.k8s.edgecdnx.com'
+          controller:
+            resources:
+              requests:
+                memory: 512Mi
+              limits:
+                memory: 512Mi
+  destination:
+    namespace: argocd
+    sever: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true # Big CRDs.
+  ignoreDifferences: []
