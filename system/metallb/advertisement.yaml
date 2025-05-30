@@ -6,3 +6,5 @@ metadata:
 spec:
   ipAddressPools:
   - addresspool
+  interfaces:
+  - misc
