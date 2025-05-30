@@ -5,7 +5,7 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: ssh://git@github.com:EdgeCDN-X/bootstrap.git
+      repoURL: ssh://git@github.com/EdgeCDN-X/bootstrap.git
       revision: HEAD
       directories:
       - path: system/*
@@ -15,7 +15,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: ssh://git@github.com:EdgeCDN-X/bootstrap.git
+        repoURL: ssh://git@github.com/EdgeCDN-X/bootstrap.git
         targetRevision: HEAD
         path: '{{path}}'
       destination:
