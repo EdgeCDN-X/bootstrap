@@ -32,7 +32,7 @@ spec:
     metadata:
       name: edgecdnx-cache-{{ .values.cache }}-{{ index .metadata.labels "edgecdnx.com/location" }}-{{ .values.tier }}
     spec:
-      project: edgecdnx
+      project: default
       sources:
         - chart: "{{ .values.chart }}"
           repoURL: "{{ .values.chartRepository }}"
