@@ -5,6 +5,7 @@ metadata:
   name: edgecdnx-cache
   namespace: argocd
 spec:
+  goTemplate: true
   syncPolicy:
     preserveResourcesOnDeletion: false
   generators:
@@ -29,15 +30,15 @@ spec:
                 - edge
   template:
     metadata:
-      name: "edgecdnx-cache-{{ values.cache }}-{{ metadata.labels.'edgecdnx.com/location' }}-{{ values.tier }}"
+      name: "edgecdnx-cache-{{ .values.cache }}-{{ .metadata.labels.'edgecdnx.com/location' }}-{{ .values.tier }}"
     spec:
       project: edgecdnx
       sources:
-        - chart: "{{ values.chart }}"
-          repoURL: "{{ values.chartRepository }}"
-          targetRevision: "{{ values.chartVersion }}"
+        - chart: "{{ .values.chart }}"
+          repoURL: "{{ .values.chartRepository }}"
+          targetRevision: "{{ .values.chartVersion }}"
           helm:
-            releaseName: ingress-nginx
+            releaseName: ingress-nginx-{{ .values.cache }}
             ignoreMissingValueFiles: true
             valuesObject:
               controller:
@@ -51,31 +52,31 @@ spec:
                 ingressClassResource:
                   enabled: true
                   default: false
-                  name: "edgecdnx-cache-{{ values.cache }}"
-                  controllerValue: "edgecdnx.com/cache-{{ values.cache }}"
+                  name: "edgecdnx-cache-{{ .values.cache }}"
+                  controllerValue: "edgecdnx.com/cache-{{ .values.cache }}"
                 service:
                   enabled: false
                 hostPort:
                   enabled: true
                 kind: DaemonSet
                 nodeSelector:
-                  edgecdnx.com/cache: "{{ values.cache }}"
+                  edgecdnx.com/cache: "{{ .values.cache }}"
                 extraVolumes:
                   - name: nginx-cache
                     hostPath:
-                      path: "{{ values.path }}"
+                      path: "{{ .values.path }}"
                       type: Directory
                 extraVolumeMounts:
                   - name: nginx-cache
-                    mountPath: "{{ values.path }}"
+                    mountPath: "{{ .values.path }}"
                 config:
                   proxy-buffering: "on"
                   annotations-risk-level: "Critical"
                   http-snippet: |
-                    proxy_cache_path {{ values.path }} levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
+                    proxy_cache_path {{ .values.path }} levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
       destination:
-        namespace: "{{ .Values.namespace }}"
-        server: "{{ server }}"
+        namespace: "{{ .values.namespace }}"
+        server: "{{ .server }}"
       syncPolicy:
         automated: {}
         syncOptions:
