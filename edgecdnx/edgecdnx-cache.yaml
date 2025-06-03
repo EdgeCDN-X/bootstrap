@@ -15,24 +15,7 @@ spec:
           chartRepository: https://kubernetes.github.io/ingress-nginx
           namespace: edgecdnx-cache
           cache: ssd
-        selector:
-          matchExpressions:
-            - key: edgecdnx.com/caching
-              operator: In
-              values:
-                - "true"
-                - "yes"
-            - key: edgecdnx.com/tier
-              operator: In
-              values:
-                - edge
-    - clusters:
-        values:
-          chart: ingress-nginx
-          chartVersion: 4.12.1
-          chartRepository: https://kubernetes.github.io/ingress-nginx
-          namespace: edgecdnx-cache
-          cache: ram
+          path: /var/cache/ssd
         selector:
           matchExpressions:
             - key: edgecdnx.com/caching
@@ -46,13 +29,13 @@ spec:
                 - edge
   template:
     metadata:
-      name: "edgecdnx-cache-{{ .Values.cache }}-{{ metadata.labels.'edgecdnx.com/location' }}-{{ .Values.tier }}"
+      name: "edgecdnx-cache-{{ values.cache }}-{{ metadata.labels.'edgecdnx.com/location' }}-{{ values.tier }}"
     spec:
       project: edgecdnx
       sources:
-        - chart: "{{values.chart}}"
-          repoURL: "{{values.chartRepository}}"
-          targetRevision: "{{values.chartVersion}}"
+        - chart: "{{ values.chart }}"
+          repoURL: "{{ values.chartRepository }}"
+          targetRevision: "{{ values.chartVersion }}"
           helm:
             releaseName: ingress-nginx
             ignoreMissingValueFiles: true
@@ -61,37 +44,37 @@ spec:
                 metrics:
                   enabled: false
                   serviceMonitor:
-                    enabled: false # TODO
+                    enabled: false
                     additionalLabels:
                       release: prometheus-stack
                 allowSnippetAnnotations: true
                 ingressClassResource:
                   enabled: true
                   default: false
-                  name: "edgecdnx-cache-{{ .Values.cache }}"
-                  controllerValue: "edgecdnx.com/cache-{{ .Values.cache }}"
+                  name: "edgecdnx-cache-{{ values.cache }}"
+                  controllerValue: "edgecdnx.com/cache-{{ values.cache }}"
                 service:
                   enabled: false
                 hostPort:
                   enabled: true
                 kind: DaemonSet
                 nodeSelector:
-                  edgecdnx.com/cache: "{{ .Values.cache }}"
+                  edgecdnx.com/cache: "{{ values.cache }}"
                 extraVolumes:
                   - name: nginx-cache
                     hostPath:
-                      path: "/var/lib/nginx-cache-{{ .Values.cache }}"
+                      path: "{{ values.path }}"
                       type: Directory
                 extraVolumeMounts:
                   - name: nginx-cache
-                    mountPath: "/var/lib/nginx-cache-{{ .Values.cache }}"
+                    mountPath: "{{ values.path }}"
                 config:
                   proxy-buffering: "on"
                   annotations-risk-level: "Critical"
                   http-snippet: |
-                    proxy_cache_path /var/lib/nginx-cache-{{ .Values.cache }} levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
+                    proxy_cache_path {{ values.path }} levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
       destination:
-        namespace: "{{values.namespace}}"
+        namespace: "{{ .Values.namespace }}"
         server: "{{ server }}"
       syncPolicy:
         automated: {}
