@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: control.k8s.edgecdnx.com
+spec:
+  acme:
+    email: tbo@tbotech.sk
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: control-k8s-edgecdnx-com-key
+    solvers:
+    - selector:
+        dnsZones:
+          - k8s.edgecdnx.com
+      dns01:
+        digitalocean:
+          tokenSecretRef:
+            name: digitalocean-dns
+            key: access-token
