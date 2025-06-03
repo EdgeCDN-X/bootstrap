@@ -21,6 +21,8 @@ spec:
             ingress:
               enabled: true
               ingressClassName: nginx
+              annotations:
+                cert-manager.io/cluster-issuer: control.k8s.edgecdnx.com
               tls: true
               hostname: 'argocd.control.k8s.edgecdnx.com'
           controller:
