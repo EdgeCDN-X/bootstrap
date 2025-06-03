@@ -30,7 +30,7 @@ spec:
                 - edge
   template:
     metadata:
-      name: "edgecdnx-cache-{{ .values.cache }}-{{ .metadata.labels.'edgecdnx.com_location' }}-{{ .values.tier }}"
+      name: "edgecdnx-cache-{{ .values.cache }}-{{ index .metadata 'labels' 'edgecdnx.com/location' }}-{{ .values.tier }}"
     spec:
       project: edgecdnx
       sources:
