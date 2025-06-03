@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: edgecdnx
+spec:
+  project: default
+  source:
+    repoURL: ssh://git@github.com/EdgeCDN-X/bootstrap.git
+    targetRevision: HEAD
+    path: edgecdnx
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+      allowEmpty: true
