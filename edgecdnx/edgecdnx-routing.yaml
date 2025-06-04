@@ -79,7 +79,7 @@ spec:
                     )
 
                     {{- range .clusters }}
-                                IN           NS               ns{{ index .metadata.labels "edgecdnx.com/ns" }}.cdn.edgecdnx.com.
+                                IN           NS              ns{{ index .metadata.labels "edgecdnx.com/ns" }}.cdn.edgecdnx.com.
                     ns{{ index .metadata.labels "edgecdnx.com/ns" }}         IN           A               {{ index .metadata.labels "edgecdnx.com/public-ip" }}
                     {{- end }}
                     
