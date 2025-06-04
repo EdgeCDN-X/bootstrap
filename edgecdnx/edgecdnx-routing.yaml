@@ -1,0 +1,93 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: edgecdnx-cache
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - matrix:
+        generators:
+          - clusters:
+              flatList: true
+              selector:
+                matchExpressions:
+                  - key: edgecdnx.com/caching
+                    operator: In
+                    values:
+                      - "true"
+                      - "yes"
+          - clusters:
+              values:
+                chart: coredns
+                chartVersion: 1.42.2
+                chartRepository: https://coredns.github.io/helm
+                namespace: edgecdnx-routing
+              selector:
+                matchExpressions:
+                  - key: edgecdnx.com/caching
+                    operator: In
+                    values:
+                      - "true"
+                      - "yes"
+  template:
+    metadata:
+      name: edgecdnx-coredns-{{ index .metadata.labels "edgecdnx.com/location" }}
+    spec:
+      project: default
+      sources:
+        - chart: "{{ .values.chart }}"
+          repoURL: "{{ .values.chartRepository }}"
+          targetRevision: "{{ .values.chartVersion }}"
+          helm:
+            releaseName: edgecdnx-coredns
+            ignoreMissingValueFiles: true
+            valuesObject:
+              image:
+                repository: fr6nco/coredns
+                tag: 1.12.1-beta.1
+              serviceType: LoadBalancer
+              isClusterService: false
+              replicaCount: 2
+              servers:
+                - port: 53
+                  plugins:
+                    - name: ready
+                    - name: debug
+                    - name: health
+                      configBlock: |-
+                        lameduck 10s
+                    - name: file 
+                      parameters: /etc/coredns/cdn.edgecdnx.com.zone
+                  zones:
+                  - zone: "cdn.edgecdnx.com"
+              zoneFiles:
+                - filename: cdn.edgecdnx.com.zone
+                  contents: |
+                    $ORIGIN cdn.edgecdnx.com.
+                    $TTL 300
+
+                    @   IN  SOA     ns.cdn.edgecdnx.com. noc.edgecdnx.com. (
+                            2025060400  ;Serial
+                            7200        ;Refresh
+                            3600        ;Retry
+                            1209600     ;Expire
+                            3600        ;Negative response caching TTL
+                    )
+
+                                IN           NS                  ns.cdn.edgecdnx.com.
+                    ns          IN           A                   188.167.203.182
+                    eu-west-1   IN           A                   192.168.100.35
+                    @           IN           A                   192.168.100.20
+      destination:
+        namespace: "{{ .values.namespace }}"
+        server: "{{ .server }}"
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.
+      ignoreDifferences: []
