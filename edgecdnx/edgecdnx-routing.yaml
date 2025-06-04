@@ -81,9 +81,7 @@ spec:
                     {{- range .clusters }}
                                 IN           NS              ns{{ index .metadata.labels "edgecdnx.com/ns" }}.cdn.edgecdnx.com.
                     ns{{ index .metadata.labels "edgecdnx.com/ns" }}         IN           A               {{ index .metadata.labels "edgecdnx.com/public-ip" }}
-                    {{- end }}
-                    
-                    @           IN           A               192.168.100.20
+                    {{- end }}                    
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
