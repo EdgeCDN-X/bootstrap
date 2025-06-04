@@ -70,13 +70,7 @@ spec:
                     $ORIGIN cdn.edgecdnx.com.
                     $TTL 300
 
-                    {{ toYaml .values }}
-                    {{ toYaml .clusters }}
-                    {{ toYaml .name }}
-
-                    {{- range .clusters -}}{{- if eq .name $.name }} IAM {{.name}} {{- end -}}{{- end -}}
-
-                    @   IN  SOA     ns.cdn.edgecdnx.com. noc.edgecdnx.com. (
+                    @   IN  SOA     {{- range .clusters -}}{{ if eq .name $.name }} ns{{ index .metadata.labels "edgecdnx.com/ns" }}{{ end -}}{{- end -}}.cdn.edgecdnx.com. noc.edgecdnx.com. (
                             2025060400  ;Serial
                             7200        ;Refresh
                             3600        ;Retry
@@ -84,9 +78,11 @@ spec:
                             3600        ;Negative response caching TTL
                     )
 
-                                IN           NS                  ns.cdn.edgecdnx.com.
-                    ns          IN           A                   188.167.203.182
-                    eu-west-1   IN           A                   192.168.100.35
+                    {{- range .clusters }}
+                                IN           NS                  ns{{ index .metadata.labels "edgecdnx.com/ns" }}.cdn.edgecdnx.com.
+                    ns{{ index .metadata.labels "edgecdnx.com/ns" }}          IN           A               {{ index .metadata.labels "edgecdnx.com/public-ip" }}
+                    {{- end }}
+                    
                     @           IN           A                   192.168.100.20
       destination:
         namespace: "{{ .values.namespace }}"
