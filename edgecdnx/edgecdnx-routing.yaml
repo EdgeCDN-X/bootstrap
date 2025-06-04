@@ -70,6 +70,10 @@ spec:
                     $ORIGIN cdn.edgecdnx.com.
                     $TTL 300
 
+                    {{ toYaml .values }}
+                    {{ toYaml .clusters }}
+                    {{ toYaml .name }}
+
                     @   IN  SOA     ns.cdn.edgecdnx.com. noc.edgecdnx.com. (
                             2025060400  ;Serial
                             7200        ;Refresh
