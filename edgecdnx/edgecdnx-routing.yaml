@@ -74,6 +74,8 @@ spec:
                     {{ toYaml .clusters }}
                     {{ toYaml .name }}
 
+                    {{- range .clusters -}}{{- if eq .name $.name }} IAM {{.name}} {{- end -}}{{- end -}}
+
                     @   IN  SOA     ns.cdn.edgecdnx.com. noc.edgecdnx.com. (
                             2025060400  ;Serial
                             7200        ;Refresh
