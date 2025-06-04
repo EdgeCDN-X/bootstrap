@@ -41,8 +41,8 @@ spec:
               speaker:
                 ignoreExcludeLB: true
         - chart: "{{ .values.chartConfig }}"
-          repoURL: "{{ .values.ChartConfigRepository }}"
-          targetRevision: "{{ .values.ChartConfigVersion }}"
+          repoURL: "{{ .values.chartConfigVersion }}"
+          targetRevision: "{{ .values.chartConfigVersion }}"
           helm:
             releaseName: metallb-config
             ignoreMissingValueFiles: true
