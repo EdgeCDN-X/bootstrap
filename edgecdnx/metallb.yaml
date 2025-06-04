@@ -41,7 +41,7 @@ spec:
               speaker:
                 ignoreExcludeLB: true
         - chart: "{{ .values.chartConfig }}"
-          repoURL: "{{ .values.chartConfigVersion }}"
+          repoURL: "{{ .values.chartConfigRepository }}"
           targetRevision: "{{ .values.chartConfigVersion }}"
           helm:
             releaseName: metallb-config
