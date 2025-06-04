@@ -47,11 +47,12 @@ spec:
             releaseName: metallb-config
             ignoreMissingValueFiles: true
             valuesObject:
-              addressPools:
-                - name: pool1
-                  addresses:
-                    - '{{ index .metadata.annotations "metallb-pool" }}'
-                  l2advertisement: true
+              metallb:
+                addressPools:
+                  - name: pool1
+                    addresses:
+                      - '{{ index .metadata.annotations "metallb-pool" }}'
+                    l2advertisement: true
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
