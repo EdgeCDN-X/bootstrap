@@ -15,6 +15,9 @@ spec:
           chartVersion: 0.14.9
           chartRepository: https://metallb.github.io/metallb
           namespace: metallb-system
+          chartConfig: metallb-config
+          chartConfigVersion: 0.1.0
+          chartConfigRepository: https://edgecdn-x.github.io/helm-charts
         selector:
           matchExpressions:
             - key: edgecdnx.com/routing
@@ -34,7 +37,21 @@ spec:
           helm:
             releaseName: metallb
             ignoreMissingValueFiles: true
-            valuesObject: {}     
+            valuesObject:
+              speaker:
+                ignoreExcludeLB: true
+        - chart: "{{ .values.chartConfig }}"
+          repoURL: "{{ .values.ChartConfigRepository }}"
+          targetRevision: "{{ .values.ChartConfigVersion }}"
+          helm:
+            releaseName: metallb-config
+            ignoreMissingValueFiles: true
+            valuesObject:
+              addressPools:
+                - name: pool1
+                  addresses:
+                    - "{{ .metadata.annotations.metallb-pool }}"
+                  l2advertisement: true
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
