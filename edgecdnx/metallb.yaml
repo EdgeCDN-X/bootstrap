@@ -50,7 +50,7 @@ spec:
               addressPools:
                 - name: pool1
                   addresses:
-                    - "{{ .metadata.annotations.metallb-pool }}"
+                    - "{{ index .metadata.annotations 'metallb-pool' }}"
                   l2advertisement: true
       destination:
         namespace: "{{ .values.namespace }}"
