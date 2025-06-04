@@ -86,7 +86,8 @@ spec:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
       syncPolicy:
-        automated: {}
+        automated:
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true # Big CRDs.
