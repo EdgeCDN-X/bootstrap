@@ -101,6 +101,14 @@ spec:
               extraVolumeMounts:
                 - name: edgecdnx-locations
                   mountPath: /etc/edgecdnx/locations
+        - chart: coredns-rbac
+          repoURL: https://edgecdn-x.github.io/helm-charts
+          targetRevision: 0.1.0
+          helm:
+            releaseName: edgecdnx-coredns-rbac
+            ignoreMissingValueFiles: true
+            valuesObject:
+              serviceAccount: default
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
