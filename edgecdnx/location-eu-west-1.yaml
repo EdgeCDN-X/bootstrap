@@ -15,6 +15,6 @@ spec:
     weight: 40
     attributes:
       geoip/continent/code:
-        weigth: 1000
+        weight: 1000
         values:
           - value: "EU"
