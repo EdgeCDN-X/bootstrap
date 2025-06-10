@@ -82,6 +82,25 @@ spec:
                                 IN           NS              ns{{ index .metadata.annotations "edgecdnx.com/ns" }}.cdn.edgecdnx.com.
                     ns{{ index .metadata.annotations "edgecdnx.com/ns" }}         IN           A               {{ index .metadata.annotations "edgecdnx.com/public-ip" }}
                     {{- end }}                    
+              extraContainers:
+                - name: edgecdnx-loactions-sidecar
+                  image: kiwigrid/k8s-sidecar:latest
+                  volumeMounts:
+                    - name: edgecdnx-locations
+                      mountPath: /etc/edgecdnx/locations
+                  env:
+                    - name: LABEL
+                      value: "edgecdnx.com/location"
+                    - name: RESOURCE
+                      value: "configmap"
+                    - name: "FOLDER"
+                      value: "/etc/edgecdnx/locations"
+              extraVolumes:
+                - name: edgecdnx-locations
+                  emptyDir: {}
+              extraVolumeMounts:
+                - name: edgecdnx-locations
+                  mountPath: /etc/edgecdnx/locations
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
