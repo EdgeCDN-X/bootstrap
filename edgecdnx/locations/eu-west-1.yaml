@@ -1,0 +1,20 @@
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: Location
+metadata:
+  name: eu-west-1
+spec:
+  fallbackLocations:
+  - eu-east-1
+  nodes:
+  - name: n1
+    ipv4: 192.168.100.35
+    caches:
+    - ssd
+  geoLookup:
+    weight: 40
+    atttributes:
+      geoip/continent/code:
+        weigth: 1000
+        values:
+          - value: "EU"
