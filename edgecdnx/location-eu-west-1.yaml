@@ -13,7 +13,7 @@ spec:
     - ssd
   geoLookup:
     weight: 40
-    atttributes:
+    attributes:
       geoip/continent/code:
         weigth: 1000
         values:
