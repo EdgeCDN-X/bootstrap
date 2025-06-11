@@ -48,7 +48,8 @@ spec:
             valuesObject:
               image:
                 repository: fr6nco/coredns
-                tag: 1.12.1-beta.1
+                tag: latest
+                pullPolicy: Always
               serviceType: LoadBalancer
               isClusterService: false
               replicaCount: 2
