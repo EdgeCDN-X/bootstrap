@@ -1,0 +1,15 @@
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: Service
+metadata:
+  name: content.edgecdnx.com
+spec:
+  name: content.edgecdnx.com
+  originType: static
+  staticOrigins:
+    - upstream: picsum.photos
+      hostHeader: picsum.photos
+      port: 443
+  customer:
+    id: 1
+    name: EdgeCDNx
+  cache: ssd

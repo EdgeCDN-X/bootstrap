@@ -56,7 +56,19 @@ spec:
                 type: string
               staticOrigins:
                 items:
-                  type: string
+                  properties:
+                    hostHeader:
+                      type: string
+                    port:
+                      type: integer
+                    scheme:
+                      enum:
+                      - Http
+                      - Https
+                      type: string
+                    upstream:
+                      type: string
+                  type: object
                 type: array
             required:
             - customer
