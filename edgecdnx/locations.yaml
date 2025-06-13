@@ -1,0 +1,64 @@
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: Location
+metadata:
+  name: eu-west-1
+spec:
+  fallbackLocations:
+  - us-west-1
+  nodes:
+  - name: n1
+    ipv4: 192.168.100.35
+    caches:
+    - ssd
+  geoLookup:
+    weight: 50
+    attributes:
+      geoip/continent/code:
+        weight: 1000
+        values:
+          - value: "EU"
+          - value: "AF"
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: Location
+metadata:
+  name: us-west-1
+spec:
+  fallbackLocations:
+  - eu-west-1
+  nodes:
+  - name: n1
+    ipv4: 192.168.100.131
+    caches:
+    - ssd
+  geoLookup:
+    weight: 50
+    attributes:
+      geoip/continent/code:
+        weight: 1000
+        values:
+          - value: "AN"
+          - value: "NA"
+          - value: "SA"
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: Location
+metadata:
+  name: asia-east-1
+spec:
+  fallbackLocations:
+  - us-west-1
+  nodes:
+  - name: n1
+    ipv4: 192.168.100.163
+    caches:
+    - ssd
+  geoLookup:
+    weight: 50
+    attributes:
+      geoip/continent/code:
+        weight: 1000
+        values:
+          - value: "AS"
+          - value: "OC"
