@@ -9,6 +9,7 @@ spec:
     - upstream: picsum.photos
       hostHeader: picsum.photos
       port: 443
+      scheme: Https
   customer:
     id: 1
     name: EdgeCDNx
