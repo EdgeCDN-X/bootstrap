@@ -8,8 +8,25 @@ spec:
   destination: eu-west-1
   prefix:
     v4:
-      - address: 192.168.100.35
+      - address: 192.168.100.0
+        size: 27
+      - address: 192.168.100.32
         size: 27
     v6:
-      - address: 2001:db8::1
+      - address: '2a03:2e01::'
+        size: 64
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: PrefixList
+metadata:
+  name: prefixlist-eu-west-1-2
+spec:
+  source: Static
+  destination: eu-west-1
+  prefix:
+    v4:
+      - address: 192.168.100.64
+        size: 26
+    v6:
+      - address: '2a03:2e02::'
         size: 64
