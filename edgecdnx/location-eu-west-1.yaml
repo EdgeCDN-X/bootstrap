@@ -1,5 +1,5 @@
 ---
-apiVersion: infrastructure.edgecdnx.com/v1alpha2
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
 kind: Location
 metadata:
   name: eu-west-1
