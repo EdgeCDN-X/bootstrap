@@ -1,0 +1,15 @@
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: PrefixList
+metadata:
+  name: prefixlist-eu-west-1
+spec:
+  source: Static
+  destination: eu-west-1
+  prefix:
+    v4:
+      - address: 192.168.100.35
+        size: 27
+    v6:
+      - address: 2001:db8::1
+        size: 64
