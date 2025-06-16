@@ -14,7 +14,7 @@ spec:
         size: 27
     v6:
       - address: '2a03:2e01::'
-        size: 64
+        size: 32
 ---
 apiVersion: infrastructure.edgecdnx.com/v1alpha1
 kind: PrefixList
@@ -28,5 +28,5 @@ spec:
       - address: 192.168.100.64
         size: 26
     v6:
-      - address: '2a03:2e02::'
-        size: 64
+      - address: '2a03:2e00::'
+        size: 32
