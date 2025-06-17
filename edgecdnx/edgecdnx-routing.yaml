@@ -63,8 +63,18 @@ spec:
                         lameduck 10s
                     - name: file 
                       parameters: /etc/coredns/cdn.edgecdnx.com.zone
+                    - name: edgecdnxservices
+                      parameters: edgecdnx-routing
+                    - name: edgecdnxprefixlist
+                      parameters: edgecdnx-routing
+                    - name: geoip
+                      parameters: ./config/GeoLite2-City.mmdb
+                      configBlock: |
+                        edns-subnet
+                    - name: edgecdnxgeolookup
+                      parameters: edgecdnx-routing
                   zones:
-                  - zone: "cdn.edgecdnx.com"
+                  - zone: "."
               zoneFiles:
                 - filename: cdn.edgecdnx.com.zone
                   contents: |
