@@ -18,6 +18,7 @@ spec:
         weight: 1000
         values:
           - value: "EU"
+            weight: 10
           - value: "AF"
 ---
 apiVersion: infrastructure.edgecdnx.com/v1alpha1
