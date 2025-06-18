@@ -62,8 +62,8 @@ spec:
                     - name: health
                       configBlock: |-
                         lameduck 10s
-                    - name: edgecdnxservices
-                      parameters: edgecdnx-routing
+                    # - name: edgecdnxservices
+                    #   parameters: edgecdnx-routing
                     - name: edgecdnxprefixlist
                       parameters: edgecdnx-routing
                     - name: geoip
