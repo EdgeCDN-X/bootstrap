@@ -51,6 +51,8 @@ spec:
                 tag: latest
                 pullPolicy: Always
               serviceType: LoadBalancer
+              service:
+                externalTrafficPolicy: Local
               isClusterService: false
               replicaCount: 2
               servers:
