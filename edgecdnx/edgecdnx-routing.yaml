@@ -73,7 +73,7 @@ spec:
                     - name: edgecdnxgeolookup
                       parameters: edgecdnx-routing
                   zones:
-                    - zone: "."
+                    - zone: "serve.cdn.edgecdnx.com."
                 - port: 53
                   plugins:
                     - name: ready
