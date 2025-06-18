@@ -54,7 +54,7 @@ spec:
               service:
                 externalTrafficPolicy: Local
               isClusterService: false
-              replicaCount: 2
+              replicaCount: 1
               servers:
                 - port: 53
                   plugins:
