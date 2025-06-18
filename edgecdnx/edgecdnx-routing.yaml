@@ -112,7 +112,7 @@ spec:
                   mountPath: /etc/edgecdnx/geolookup
         - chart: coredns-rbac
           repoURL: https://edgecdn-x.github.io/helm-charts
-          targetRevision: 0.1.0
+          targetRevision: 0.1.1
           helm:
             releaseName: edgecdnx-coredns-rbac
             ignoreMissingValueFiles: true
