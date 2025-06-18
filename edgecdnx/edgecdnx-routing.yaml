@@ -62,8 +62,8 @@ spec:
                     - name: health
                       configBlock: |-
                         lameduck 10s
-                    # - name: file 
-                    #   parameters: /etc/coredns/cdn.edgecdnx.com.zone
+                    - name: file 
+                      parameters: /etc/coredns/cdn.edgecdnx.com.zone cdn.edgecdnx.com
                     - name: edgecdnxservices
                       parameters: edgecdnx-routing
                     - name: edgecdnxprefixlist
