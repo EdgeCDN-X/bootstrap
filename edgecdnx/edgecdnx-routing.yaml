@@ -62,8 +62,6 @@ spec:
                     - name: health
                       configBlock: |-
                         lameduck 10s
-                    - name: file 
-                      parameters: /etc/coredns/cdn.edgecdnx.com.zone cdn.edgecdnx.com
                     - name: edgecdnxservices
                       parameters: edgecdnx-routing
                     - name: edgecdnxprefixlist
@@ -74,6 +72,17 @@ spec:
                         edns-subnet
                     - name: edgecdnxgeolookup
                       parameters: edgecdnx-routing
+                  zones:
+                    - zone: "."
+                - port: 53
+                  plugins:
+                    - name: ready
+                    - name: debug
+                    - name: health
+                      configBlock: |-
+                        lameduck 10s
+                    - name: file
+                      parameters: /etc/coredns/cdn.edgecdnx.com.zone cdn.edgecdnx.com
                   zones:
                   - zone: "."
               zoneFiles:
