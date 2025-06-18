@@ -58,11 +58,12 @@ spec:
                   plugins:
                     - name: ready
                     - name: debug
+                    - name: metadata
                     - name: health
                       configBlock: |-
                         lameduck 10s
-                    - name: file 
-                      parameters: /etc/coredns/cdn.edgecdnx.com.zone
+                    # - name: file 
+                    #   parameters: /etc/coredns/cdn.edgecdnx.com.zone
                     - name: edgecdnxservices
                       parameters: edgecdnx-routing
                     - name: edgecdnxprefixlist
@@ -92,7 +93,7 @@ spec:
                     {{- range .clusters }}
                                 IN           NS              ns{{ index .metadata.annotations "edgecdnx.com/ns" }}.cdn.edgecdnx.com.
                     ns{{ index .metadata.annotations "edgecdnx.com/ns" }}         IN           A               {{ index .metadata.annotations "edgecdnx.com/public-ip" }}
-                    {{- end }}                    
+                    {{- end }}
               initContainers:
                 - name: edgecdnx-mmdb-init
                   image: curlimages/curl:8.14.1
