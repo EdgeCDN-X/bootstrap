@@ -72,19 +72,25 @@ spec:
                         edns-subnet
                     - name: edgecdnxgeolookup
                       parameters: edgecdnx-routing
-                  zones:
-                    - zone: "serve.cdn.edgecdnx.com."
-                - port: 53
-                  plugins:
-                    - name: ready
-                    - name: debug
-                    - name: health
-                      configBlock: |-
-                        lameduck 10s
-                    - name: file
-                      parameters: /etc/coredns/cdn.edgecdnx.com.zone cdn.edgecdnx.com
-                  zones:
-                  - zone: "cdn.edgecdnx.com."
+                    - name: records
+                      parameters: cdn.edgecdnx.com
+                      configBlock: |
+                        @ 60 IN           SOA             ns.cdn.edgecdnx.com. noc.edgecdnx.com. 2025061801 7200 3600 1209600 3600
+                        @    IN           NS              ns
+                        ns   IN           A               188.167.203.182
+                  zones:  
+                    - zone: "cdn.edgecdnx.com."
+                # - port: 53
+                #   plugins:
+                #     - name: ready
+                #     - name: debug
+                #     - name: health
+                #       configBlock: |-
+                #         lameduck 10s
+                #     # - name: file
+                #     #   parameters: /etc/coredns/cdn.edgecdnx.com.zone cdn.edgecdnx.com
+                #   zones:
+                #   - zone: "cdn.edgecdnx.com."
               zoneFiles:
                 - filename: cdn.edgecdnx.com.zone
                   contents: |
