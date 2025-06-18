@@ -23,7 +23,7 @@ spec:
           - clusters:
               values:
                 chart: coredns
-                chartVersion: 1.42.2
+                chartVersion: 1.43.0
                 chartRepository: https://coredns.github.io/helm
                 namespace: edgecdnx-routing
               selector:
@@ -68,7 +68,7 @@ spec:
                     - name: edgecdnxprefixlist
                       parameters: edgecdnx-routing
                     - name: geoip
-                      parameters: ./config/GeoLite2-City.mmdb
+                      parameters: /etc/edgecdnx/geolookup/GeoLite2-City.mmdb
                       configBlock: |
                         edns-subnet
                     - name: edgecdnxgeolookup
@@ -93,25 +93,23 @@ spec:
                                 IN           NS              ns{{ index .metadata.annotations "edgecdnx.com/ns" }}.cdn.edgecdnx.com.
                     ns{{ index .metadata.annotations "edgecdnx.com/ns" }}         IN           A               {{ index .metadata.annotations "edgecdnx.com/public-ip" }}
                     {{- end }}                    
-              extraContainers:
-                - name: edgecdnx-loactions-sidecar
-                  image: kiwigrid/k8s-sidecar:latest
+              initContainers:
+                - name: edgecdnx-mmdb-init
+                  image: curlimages/curl:8.14.1
                   volumeMounts:
-                    - name: edgecdnx-locations
-                      mountPath: /etc/edgecdnx/locations
-                  env:
-                    - name: LABEL
-                      value: "edgecdnx.com/location"
-                    - name: RESOURCE
-                      value: "configmap"
-                    - name: "FOLDER"
-                      value: "/etc/edgecdnx/locations"
+                    - name: geolookup-mmdb
+                      mountPath: /etc/edgecdnx/geolookup
+                  command:
+                    - sh
+                    - -c
+                    - |
+                      curl -L https://share.tbotech.sk/api/shares/7aAqdIUO/files/4e046472-f00d-4275-be7b-b5228ff200ce -o /etc/edgecdnx/geolookup/GeoLite2-City.mmdb
               extraVolumes:
-                - name: edgecdnx-locations
+                - name: geolookup-mmdb
                   emptyDir: {}
               extraVolumeMounts:
-                - name: edgecdnx-locations
-                  mountPath: /etc/edgecdnx/locations
+                - name: geolookup-mmdb
+                  mountPath: /etc/edgecdnx/geolookup
         - chart: coredns-rbac
           repoURL: https://edgecdn-x.github.io/helm-charts
           targetRevision: 0.1.0
