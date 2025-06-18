@@ -74,7 +74,7 @@ spec:
                     - name: edgecdnxgeolookup
                       parameters: edgecdnx-routing
                   zones:
-                  - zone: "."
+                  - zone: "cdn.edgecdnx.com."
               zoneFiles:
                 - filename: cdn.edgecdnx.com.zone
                   contents: |
