@@ -47,6 +47,8 @@ spec:
                   name:
                     type: string
                 type: object
+              domain:
+                type: string
               name:
                 type: string
               originType:
