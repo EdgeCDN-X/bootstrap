@@ -2,43 +2,10 @@
 apiVersion: infrastructure.edgecdnx.com/v1alpha1
 kind: Service
 metadata:
-  name: content.edgecdnx.com
-spec:
-  name: content.edgecdnx.com
-  originType: static
-  staticOrigins:
-    - upstream: picsum.photos
-      hostHeader: picsum.photos
-      port: 443
-      scheme: Https
-  customer:
-    id: 1
-    name: EdgeCDNx
-  cache: ssd
----
-apiVersion: infrastructure.edgecdnx.com/v1alpha1
-kind: Service
-metadata:
   name: images.tbotech.sk
 spec:
   name: images.tbotech.sk
-  originType: static
-  staticOrigins:
-    - upstream: picsum.photos
-      hostHeader: picsum.photos
-      port: 443
-      scheme: Https
-  customer:
-    id: 2
-    name: TboTech
-  cache: ssd
----
-apiVersion: infrastructure.edgecdnx.com/v1alpha1
-kind: Service
-metadata:
-  name: serve.cdn.edgecdnx.com
-spec:
-  name: serve.cdn.edgecdnx.com
+  domain: lsansdkaglh23as.cdn.edgecdnx.com
   originType: static
   staticOrigins:
     - upstream: picsum.photos
