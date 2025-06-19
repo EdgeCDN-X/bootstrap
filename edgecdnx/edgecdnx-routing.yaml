@@ -75,7 +75,7 @@ spec:
                     - name: edgecdnxservices
                       configBlock: |
                         namespace edgecdnx-routing
-                        soa ns{{- range .clusters -}}{{ if eq .name $.name }} ns{{ index .metadata.annotations "edgecdnx.com/ns" }}{{ end -}}{{- end }}
+                        soa {{- range .clusters -}}{{ if eq .name $.name }} ns{{ index .metadata.annotations "edgecdnx.com/ns" }}{{ end -}}{{- end }}
                         email noc.edgecdnx.com
                         ns {{- range .clusters -}}{{ if eq .name $.name }} ns{{ index .metadata.annotations "edgecdnx.com/ns" }}{{ end -}}{{- end }} {{ index .metadata.annotations "edgecdnx.com/public-ip" }}
                   zones:  
