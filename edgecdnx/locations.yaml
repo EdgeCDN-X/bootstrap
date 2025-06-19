@@ -28,11 +28,11 @@ metadata:
 spec:
   fallbackLocations:
   - eu-west-1
-  nodes: []
-  # - name: n1
-  #   ipv4: 192.168.100.131
-  #   caches:
-  #   - ssd
+  nodes:
+  - name: n1
+    ipv4: 192.168.100.131
+    caches:
+    - ssd
   geoLookup:
     weight: 50
     attributes:
