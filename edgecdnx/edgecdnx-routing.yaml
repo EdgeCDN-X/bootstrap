@@ -63,7 +63,7 @@ spec:
                     - name: metadata
                     - name: health
                       configBlock: |-
-                        lameduck 10s
+                        lameduck 5s
                     - name: edgecdnxprefixlist
                       parameters: edgecdnx-routing
                     - name: geoip
@@ -72,22 +72,12 @@ spec:
                         edns-subnet
                     - name: edgecdnxgeolookup
                       parameters: edgecdnx-routing
-                  zones:  
-                    - zone: "serve.cdn.edgecdnx.com."
-                - port: 53
-                  plugins:
-                    - name: ready
-                    - name: debug
-                    - name: metadata
-                    - name: health
-                      configBlock: |-
-                        lameduck 10s
-                    - name: records
-                      parameters: cdn.edgecdnx.com
+                    - name: edgecdnxservices
                       configBlock: |
-                        @ 60 IN           SOA             ns.cdn.edgecdnx.com. noc.edgecdnx.com. 2025061801 7200 3600 1209600 3600
-                        @    IN           NS              ns
-                        ns   IN           A               188.167.203.182
+                        namespace edgecdnx-routing
+                        soa ns{{- range .clusters -}}{{ if eq .name $.name }} ns{{ index .metadata.annotations "edgecdnx.com/ns" }}{{ end -}}{{- end -}}
+                        email noc.edgecdnx.com
+                        ns {{- range .clusters -}}{{ if eq .name $.name }} ns{{ index .metadata.annotations "edgecdnx.com/ns" }}{{ end -}}{{- end -}} {{ index .metadata.annotations "edgecdnx.com/public-ip" }}
                   zones:  
                     - zone: "cdn.edgecdnx.com."
               zoneFiles:
