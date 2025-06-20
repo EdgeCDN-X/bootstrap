@@ -1,0 +1,9 @@
+apiVersion: v2
+name: edgecdnx-controller
+description: A Helm chart for Kubernetes
+type: application
+version: 0.0.0
+dependencies:
+  - name: edgecdnx-controller
+    version: 0.1.0
+    repository: https://edgecdn-x.github.io/helm-charts/

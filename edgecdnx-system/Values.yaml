@@ -1,0 +1,3 @@
+edgecdnx-controller:
+  image:
+    tag: latest
