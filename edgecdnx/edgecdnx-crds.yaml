@@ -17,6 +17,14 @@ spec:
               values:
                 - "true"
                 - "yes"
+    - clusters:
+        selector:
+          matchExpressions:
+            - key: edgecdnx.com/caching
+              operator: In
+              values:
+                - "true"
+                - "yes"
   template:
     metadata:
       name: edgecdnx-crds-{{ index .metadata.labels "edgecdnx.com/location" }}
