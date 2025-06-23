@@ -49,6 +49,7 @@ spec:
                     additionalLabels:
                       release: prometheus-stack
                 allowSnippetAnnotations: true
+                ingressClass: "{{ .values.cache }}"
                 ingressClassResource:
                   enabled: true
                   default: false
