@@ -52,7 +52,7 @@ spec:
                 ingressClassResource:
                   enabled: true
                   default: false
-                  name: "edgecdnx-cache-{{ .values.cache }}"
+                  name: "{{ .values.cache }}"
                   controllerValue: "edgecdnx.com/cache-{{ .values.cache }}"
                 service:
                   enabled: false
