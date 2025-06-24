@@ -1,0 +1,88 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-notifications-controller-cluster-apps
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: notifications-controller
+  name: argocd-notifications-controller-cluster-apps
+rules:
+- apiGroups:
+  - "argoproj.io"
+  resources:
+  - "applications"
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-notifications-controller-cluster-apps
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: notifications-controller
+  name: argocd-notifications-controller-cluster-apps
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argocd-notifications-controller-cluster-apps
+subjects:
+- kind: ServiceAccount
+  name: argocd-notifications-controller
+  namespace: argocd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-server-cluster-apps
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: server
+  name: argocd-server-cluster-apps
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+- apiGroups:
+  - "argoproj.io"
+  resources:
+  - "applications"
+  verbs:
+  - create
+  - delete
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-server-cluster-apps
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: server
+  name: argocd-server-cluster-apps
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argocd-server-cluster-apps
+subjects:
+- kind: ServiceAccount
+  name: argocd-server
+  namespace: argocd
