@@ -40,7 +40,7 @@ spec:
                 pullPolicy: Always
               role: cache-controller
       destination:
-        namespace: {{ .values.namespace }}
+        namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
       syncPolicy:
         automated:
