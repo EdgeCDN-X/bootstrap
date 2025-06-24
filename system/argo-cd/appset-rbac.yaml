@@ -18,11 +18,14 @@ rules:
   - "argoproj.io"
   resources:
   - "applicationsets"
+  - "applications"
   verbs:
   - create
   - delete
   - update
   - patch
+  - watch
+  - list
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
