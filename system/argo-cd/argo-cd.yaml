@@ -16,6 +16,7 @@ spec:
             params:
               server.insecure: true
               applicationsetcontroller.namespaces: "*"
+              applicationsetcontroller.allow.scm.providers: "false"
               application.namespaces: "*"
             cm:
               exec.enabled: true
