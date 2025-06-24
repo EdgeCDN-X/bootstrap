@@ -40,6 +40,6 @@ spec:
   destination: us-west-1
   prefix:
     v4:
-      - address: 188.167.203.182
-        size: 32
+      - address: 188.167.203.0
+        size: 24
     v6: []
