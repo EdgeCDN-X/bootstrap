@@ -20,6 +20,7 @@ rules:
   - "applicationsets"
   - "applications"
   - "appprojects"
+  - "applicationsets/status"
   verbs:
   - create
   - delete
