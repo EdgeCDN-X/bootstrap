@@ -30,3 +30,16 @@ spec:
     v6:
       - address: '2a03:2e00::'
         size: 32
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: PrefixList
+metadata:
+  name: prefixlist-us-west-1
+spec:
+  source: Static
+  destination: us-west-1
+  prefix:
+    v4:
+      - address: 188.167.203.182
+        size: 32
+    v6: []
