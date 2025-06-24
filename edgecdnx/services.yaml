@@ -8,8 +8,8 @@ spec:
   domain: lsansdkaglh23as.cdn.edgecdnx.com
   originType: static
   staticOrigins:
-    - upstream: picsum.photos
-      hostHeader: picsum.photos
+    - upstream: placedog.net
+      hostHeader: placedog.net
       port: 443
       scheme: Https
   customer:
