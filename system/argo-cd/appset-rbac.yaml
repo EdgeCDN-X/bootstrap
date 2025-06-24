@@ -19,6 +19,7 @@ rules:
   resources:
   - "applicationsets"
   - "applications"
+  - "appprojects"
   verbs:
   - create
   - delete
