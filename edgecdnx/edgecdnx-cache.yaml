@@ -74,7 +74,7 @@ spec:
                   proxy-buffering: "on"
                   annotations-risk-level: "Critical"
                   http-snippet: |
-                    proxy_cache_path {{ .values.path }} levels=1:2 keys_zone=cdn_cache:100m inactive=10080m use_temp_path=off;
+                    proxy_cache_path {{ .values.path }} levels=1:2 keys_zone={{ .values.cache }}:100m inactive=10080m use_temp_path=off;
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
