@@ -2,14 +2,14 @@
 apiVersion: infrastructure.edgecdnx.com/v1alpha1
 kind: Service
 metadata:
-  name: images.tbotech.sk
+  name: origin.control.k8s.edgecdnx.com
 spec:
-  name: images.tbotech.sk
+  name: origin.control.k8s.edgecdnx.com
   domain: lsansdkaglh23as.cdn.edgecdnx.com
   originType: static
   staticOrigins:
-    - upstream: placedog.net
-      hostHeader: placedog.net
+    - upstream: origin.control.k8s.edgecdnx.com
+      hostHeader: origin.control.k8s.edgecdnx.com
       port: 443
       scheme: Https
   customer:
