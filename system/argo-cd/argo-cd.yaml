@@ -33,7 +33,7 @@ spec:
               requests:
                 memory: 512Mi
               limits:
-                memory: 512Mi
+                memory: 1024Mi
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
