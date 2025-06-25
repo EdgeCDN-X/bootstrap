@@ -50,7 +50,7 @@ spec:
               service:
                 name: test-origin-service
                 port:
-                  number: 80\
+                  number: 80
   tls:
     - hosts:
         - origin.control.k8s.edgecdnx.com
