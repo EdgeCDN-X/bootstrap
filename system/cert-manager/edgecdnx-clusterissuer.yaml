@@ -5,7 +5,7 @@ metadata:
 spec:
   acme:
     email: tbo@tbotech.sk
-    server: https://acme-v02.api.letsencrypt.org/directory
+    server: http://vault.vault.svc.cluster.local:8200/v1/pki_int/acme/directory
     privateKeySecretRef:
       name: control-k8s-edgecdnx-com-key
     solvers:
