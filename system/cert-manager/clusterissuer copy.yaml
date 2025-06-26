@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: control.k8s.edgecdnx.com
+  name: edgecdnx
 spec:
   acme:
     email: tbo@tbotech.sk
@@ -9,11 +9,6 @@ spec:
     privateKeySecretRef:
       name: control-k8s-edgecdnx-com-key
     solvers:
-    - selector:
-        dnsZones:
-          - k8s.edgecdnx.com
-      dns01:
-        digitalocean:
-          tokenSecretRef:
-            name: digitalocean-dns
-            key: access-token
+    - http01:
+        ingress:
+          ingressClassName: nginx
