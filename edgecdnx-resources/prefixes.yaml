@@ -8,28 +8,9 @@ spec:
   destination: eu-west-1
   prefix:
     v4:
-      - address: 192.168.100.0
-        size: 27
       - address: 192.168.100.32
         size: 27
-    v6:
-      - address: '2a03:2e01::'
-        size: 32
----
-apiVersion: infrastructure.edgecdnx.com/v1alpha1
-kind: PrefixList
-metadata:
-  name: prefixlist-eu-west-1-2
-spec:
-  source: Static
-  destination: eu-west-1
-  prefix:
-    v4:
-      - address: 192.168.100.64
-        size: 26
-    v6:
-      - address: '2a03:2e00::'
-        size: 32
+    v6: []
 ---
 apiVersion: infrastructure.edgecdnx.com/v1alpha1
 kind: PrefixList
@@ -40,6 +21,21 @@ spec:
   destination: us-west-1
   prefix:
     v4:
-      - address: 188.167.203.0
-        size: 24
+      - address: 192.168.100.128
+        size: 27
+      - address: 192.168.100.0
+        size: 27
+    v6: []
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: PrefixList
+metadata:
+  name: prefixlist-asia-east-1
+spec:
+  source: Static
+  destination: asia-east-1
+  prefix:
+    v4:
+      - address: 192.168.100.160
+        size: 27
     v6: []
