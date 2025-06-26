@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-path-provisioner-app
+spec:
+  project: default
+  sources:
+    - chart: local-path-provisioner
+      repoURL: https://charts.containeroo.ch
+      targetRevision: 0.0.32
+      helm:
+        releaseName: local-path-provisioner
+        valuesObject:
+          storageClass:
+            create: true
+            defaultClass: true
+            defaultVolumeType: hostPath
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true # Big CRDs.
