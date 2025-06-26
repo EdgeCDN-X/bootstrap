@@ -12,6 +12,7 @@ spec:
     - selector:
         dnsZones:
           - k8s.edgecdnx.com
+          - cdn.edgecdnx.com
       dns01:
         digitalocean:
           tokenSecretRef:
