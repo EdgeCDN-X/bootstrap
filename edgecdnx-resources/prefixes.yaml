@@ -25,6 +25,8 @@ spec:
         size: 27
       - address: 192.168.100.0
         size: 27
+      - address: 192.168.113.225
+        size: 24
     v6: []
 ---
 apiVersion: infrastructure.edgecdnx.com/v1alpha1
