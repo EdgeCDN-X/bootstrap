@@ -16,3 +16,21 @@ spec:
     id: 2
     name: TboTech
   cache: ssd
+---
+apiVersion: infrastructure.edgecdnx.com/v1alpha1
+kind: Service
+metadata:
+  name: dev-cert-ssl-test
+spec:
+  name: dev-cert-ssl-test
+  domain: akldjgsofheiwu.cdn.edgecdnx.com
+  originType: static
+  staticOrigins:
+    - upstream: origin.control.k8s.edgecdnx.com
+      hostHeader: origin.control.k8s.edgecdnx.com
+      port: 443
+      scheme: Https
+  customer:
+    id: 2
+    name: TboTech
+  cache: ssd
