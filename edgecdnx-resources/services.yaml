@@ -12,6 +12,7 @@ spec:
       hostHeader: origin.control.k8s.edgecdnx.com
       port: 443
       scheme: Https
+  certificate: {}
   customer:
     id: 2
     name: TboTech
@@ -30,6 +31,7 @@ spec:
       hostHeader: origin.control.k8s.edgecdnx.com
       port: 443
       scheme: Https
+  certificate: {}
   customer:
     id: 2
     name: TboTech
