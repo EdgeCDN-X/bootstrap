@@ -24,7 +24,7 @@ spec:
                 - "yes"
   template:
     metadata:
-      name: edgecdnx-controlle-routing-{{ index .metadata.labels "edgecdnx.com/location" }}
+      name: edgecdnx-controller-routing-{{ index .metadata.labels "edgecdnx.com/location" }}
     spec:
       project: default
       sources:
@@ -32,7 +32,7 @@ spec:
           repoURL: "{{ .values.chartRepository }}"
           targetRevision: "{{ .values.chartVersion }}"
           helm:
-            releaseName: edgecdnx-controller-router
+            releaseName: edgecdnx-controller-routing
             ignoreMissingValueFiles: true
             valuesObject:
               role: router
