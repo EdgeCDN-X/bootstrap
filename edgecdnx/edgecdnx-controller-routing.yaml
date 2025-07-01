@@ -36,7 +36,7 @@ spec:
             ignoreMissingValueFiles: true
             valuesObject:
               role: router
-              consulEndpoint: http://edgecdnx-consul-consul-server:8500
+              consulEndpoint: http://edgecdnx-consul-consul-server.edgecdnx-routing.svc.cluster.local:8500
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
