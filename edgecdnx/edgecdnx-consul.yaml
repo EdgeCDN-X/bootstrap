@@ -60,6 +60,15 @@ spec:
                 enabled: true
               syncCatalog:
                 enabled: false
+        - chart: consul-esm
+          repoURL: https://edgecdn-x.github.io/helm-charts
+          targetRevision: 0.1.0
+          helm:
+            releaseName: edgecdnx-consul-esm
+            ignoreMissingValueFiles: true
+            valuesObject:
+              config:
+                consulServer: "http://edgecdnx-consul-consul-server:8500"
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
