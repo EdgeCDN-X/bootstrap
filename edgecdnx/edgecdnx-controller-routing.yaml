@@ -17,7 +17,7 @@ spec:
           namespace: edgecdnx-controller-system
         selector:
           matchExpressions:
-            - key: edgecdnx.com/routing
+            - key: edgecdnx.com/caching
               operator: In
               values:
                 - "true"
