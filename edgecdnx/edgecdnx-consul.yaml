@@ -62,15 +62,13 @@ spec:
                 enabled: false
         - chart: consul-esm
           repoURL: https://edgecdn-x.github.io/helm-charts
-          targetRevision: 0.1.0
+          targetRevision: 0.1.1
           helm:
             releaseName: edgecdnx-consul-esm
             ignoreMissingValueFiles: true
             valuesObject:
               config:
                 consulServer: "http://edgecdnx-consul-consul-server:8500"
-              livenessProbe: {}
-              readinessProbe: {}
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
