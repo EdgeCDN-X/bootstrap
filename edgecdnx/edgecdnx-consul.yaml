@@ -1,0 +1,72 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: edgecdnx-consul
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - clusters:
+        values:
+          chart: consul
+          chartVersion: 1.7.2
+          chartRepository: https://helm.releases.hashicorp.com
+          namespace: edgecdnx-routing
+        selector:
+          matchExpressions:
+            - key: edgecdnx.com/routing
+              operator: In
+              values:
+                - "true"
+                - "yes"
+  template:
+    metadata:
+      name: edgecdnx-consul-{{ index .metadata.labels "edgecdnx.com/location" }}
+    spec:
+      project: default
+      sources:
+        - chart: "{{ .values.chart }}"
+          repoURL: "{{ .values.chartRepository }}"
+          targetRevision: "{{ .values.chartVersion }}"
+          helm:
+            releaseName: edgecdnx-consul
+            ignoreMissingValueFiles: true
+            valuesObject:
+              global:
+                tls:
+                  enabled: false
+                federation:
+                  enabled: false
+                acls:
+                  manageSystemACLs: false
+              connectInject:
+                enabled: false
+              server:
+                storageClass: local-path
+                replicas: 1
+                tolerations: |
+                  - key: "node-role.kubernetes.io/master"
+                    operator: "Exists"
+                    effect: "NoSchedule"
+                  - key: "node-role.kubernetes.io/control-plane"
+                    operator: "Exists"
+                    effect: "NoSchedule"
+              client:
+                enabled: false
+              dns:
+                enabled: true
+              syncCatalog:
+                enabled: false
+      destination:
+        namespace: "{{ .values.namespace }}"
+        server: "{{ .server }}"
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.
+      ignoreDifferences: []
