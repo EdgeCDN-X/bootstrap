@@ -69,6 +69,8 @@ spec:
             valuesObject:
               config:
                 consulServer: "http://edgecdnx-consul-consul-server:8500"
+              livenessProbe: {}
+              readinessProbe: {}
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
