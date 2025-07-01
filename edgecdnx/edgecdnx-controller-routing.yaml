@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: edgecdnx-controller-cache
+  name: edgecdnx-controller-routing
   namespace: argocd
 spec:
   goTemplate: true
@@ -17,14 +17,14 @@ spec:
           namespace: edgecdnx-controller-system
         selector:
           matchExpressions:
-            - key: edgecdnx.com/caching
+            - key: edgecdnx.com/routing
               operator: In
               values:
                 - "true"
                 - "yes"
   template:
     metadata:
-      name: edgecdnx-controller-router-{{ index .metadata.labels "edgecdnx.com/location" }}
+      name: edgecdnx-controlle-routing-{{ index .metadata.labels "edgecdnx.com/location" }}
     spec:
       project: default
       sources:
