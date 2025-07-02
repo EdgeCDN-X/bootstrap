@@ -5,5 +5,5 @@ type: application
 version: 0.0.0
 dependencies:
   - name: edgecdnx-controller
-    version: 0.3.5
+    version: 0.3.6
     repository: https://edgecdn-x.github.io/helm-charts/
