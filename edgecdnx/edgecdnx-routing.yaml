@@ -71,7 +71,7 @@ spec:
                       configBlock: |
                         edns-subnet
                     - name: edgecdnxgeolookup
-                      configBLock: |
+                      configBlock: |
                         namespace edgecdnx-routing
                         consulEndpoint http://edgecdnx-consul-consul-server:8500
                         consulcachettl 5s
