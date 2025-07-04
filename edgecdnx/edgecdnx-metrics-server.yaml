@@ -27,7 +27,9 @@ spec:
           helm:
             releaseName: metrics-server
             ignoreMissingValueFiles: true
-            valuesObject: {}
+            valuesObject:
+              apiService:
+                insecureSkipTLSVerify: true
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
