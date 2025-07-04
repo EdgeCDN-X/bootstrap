@@ -30,6 +30,8 @@ spec:
             valuesObject:
               apiService:
                 insecureSkipTLSVerify: true
+              args:
+                - --kubelet-insecure-tls
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
