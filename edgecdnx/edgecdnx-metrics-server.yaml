@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: edgecdnx-metrics-server
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  generators:
+    - clusters:
+        values:
+          chart: metrics-server
+          chartVersion: 3.12.2
+          chartRepository: https://kubernetes-sigs.github.io/metrics-server/
+          namespace: kube-system
+  template:
+    metadata:
+      name: edgecdnx-metrics-server-{{ .name }}
+    spec:
+      project: default
+      sources:
+        - chart: "{{ .values.chart }}"
+          repoURL: "{{ .values.chartRepository }}"
+          targetRevision: "{{ .values.chartVersion }}"
+          helm:
+            releaseName: metrics-server
+            ignoreMissingValueFiles: true
+            valuesObject: {}
+      destination:
+        namespace: "{{ .values.namespace }}"
+        server: "{{ .server }}"
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true # Big CRDs.
+      ignoreDifferences: []
