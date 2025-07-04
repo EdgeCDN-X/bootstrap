@@ -13,6 +13,13 @@ spec:
       port: 443
       scheme: Https
   certificate: {}
+  secureKeys:
+    - name: key1
+      value: "br8SDW2SvDWypCr5nKG9EwUFGwtfVLeg"
+      createdAt: "2025-07-04T13:51:40Z"
+    - name: key2
+      value: "pJrGctTXQQuEnsK3JXUfrtsmJU8c7DGY"
+      createdAt: "2025-05-02T13:51:40Z"
   customer:
     id: 2
     name: TboTech
