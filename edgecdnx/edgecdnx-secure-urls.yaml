@@ -12,7 +12,7 @@ spec:
     - clusters:
         values:
           chart: secure-urls
-          chartVersion: 0.1.0
+          chartVersion: 0.1.1
           chartRepository: https://edgecdn-x.github.io/helm-charts/
           namespace: edgecdnx-cache
         selector:
@@ -38,7 +38,11 @@ spec:
           helm:
             releaseName: secure-urls
             ignoreMissingValueFiles: true
-            valuesObject: {}
+            valuesObject:
+              command:
+                - /secure-urls
+                - --log-level
+                - debug
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
