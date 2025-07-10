@@ -75,6 +75,7 @@ spec:
                         namespace edgecdnx-routing
                         consulEndpoint http://edgecdnx-consul-consul-server:8500
                         consulcachettl 5s
+                        recordttl 30
                     - name: edgecdnxservices
                       configBlock: |
                         namespace edgecdnx-routing
