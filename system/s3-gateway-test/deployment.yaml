@@ -40,3 +40,5 @@ spec:
               value: "https"
             - name: S3_STLE
               value: "virtual"
+            - name: AWS_SIGS_VERSION
+              value: "4"
