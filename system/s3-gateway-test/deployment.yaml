@@ -38,7 +38,10 @@ spec:
               value: "443"
             - name: S3_SERVER_PROTO
               value: "https"
-            - name: S3_STLE
+            - name: S3_STYLE
               value: "virtual"
             - name: AWS_SIGS_VERSION
               value: "4"
+            - name: ALLOW_DIRECTORY_LIST
+              value: "false"
+            
