@@ -19,7 +19,7 @@ spec:
             - containerPort: 80
           env:
             - name: S3_BUCKET_NAME
-              value: ""
+              value: "numeroart"
             - name: S3_REGION
               value: "fra1"
             - name: AWS_ACCESS_KEY_ID
@@ -33,13 +33,13 @@ spec:
                   name: s3-gateway-credentials
                   key: S3_SECRET_KEY
             - name: S3_SERVER
-              value: numeroart.fra1.cdn.digitaloceanspaces.com
+              value: fra1.digitaloceanspaces.com
             - name: S3_SERVER_PORT
               value: "443"
             - name: S3_SERVER_PROTO
               value: "https"
             - name: S3_STYLE
-              value: "path"
+              value: "virtual"
             - name: AWS_SIGS_VERSION
               value: "4"
             - name: ALLOW_DIRECTORY_LIST
