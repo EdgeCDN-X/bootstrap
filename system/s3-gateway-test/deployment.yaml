@@ -33,7 +33,7 @@ spec:
                   name: s3-gateway-credentials
                   key: S3_SECRET_KEY
             - name: S3_SERVER
-              value: fra1.cdn.digitaloceanspaces.com
+              value: numeroart.fra1.cdn.digitaloceanspaces.com
             - name: S3_SERVER_PORT
               value: "443"
             - name: S3_SERVER_PROTO
