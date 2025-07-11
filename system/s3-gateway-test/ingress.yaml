@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: s3-gateway-test-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: control.k8s.edgecdnx.com
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: s3gateway.control.k8s.edgecdnx.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: nginx-s3-gateway
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - s3gateway.control.k8s.edgecdnx.com
+    secretName: s3gateway.control.k8s.edgecdnx.com-tls
