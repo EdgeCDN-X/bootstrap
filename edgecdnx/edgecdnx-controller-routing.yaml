@@ -35,6 +35,9 @@ spec:
             releaseName: edgecdnx-controller-routing
             ignoreMissingValueFiles: true
             valuesObject:
+              image:
+                tag: latest
+                pullPolicy: Always
               role: router
               consulEndpoint: http://edgecdnx-consul-consul-server.edgecdnx-routing.svc.cluster.local:8500
       destination:

@@ -35,6 +35,9 @@ spec:
             releaseName: edgecdnx-controller-caching
             ignoreMissingValueFiles: true
             valuesObject:
+              image:
+                tag: latest
+                pullPolicy: Always
               role: cache-controller
       destination:
         namespace: "{{ .values.namespace }}"
