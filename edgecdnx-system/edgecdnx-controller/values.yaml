@@ -1,4 +1,0 @@
-edgecdnx-controller: 
-  image:
-    tag: latest
-    pullPolicy: Always

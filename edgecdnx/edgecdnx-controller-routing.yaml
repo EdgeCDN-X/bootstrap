@@ -12,7 +12,7 @@ spec:
     - clusters:
         values:
           chart: edgecdnx-controller
-          chartVersion: 0.5.0
+          chartVersion: 0.5.1
           chartRepository: https://edgecdn-x.github.io/helm-charts/
           namespace: edgecdnx-controller-system
         selector:
@@ -35,9 +35,6 @@ spec:
             releaseName: edgecdnx-controller-routing
             ignoreMissingValueFiles: true
             valuesObject:
-              image:
-                tag: latest
-                pullPolicy: Always
               role: router
               consulEndpoint: http://edgecdnx-consul-consul-server.edgecdnx-routing.svc.cluster.local:8500
       destination:
