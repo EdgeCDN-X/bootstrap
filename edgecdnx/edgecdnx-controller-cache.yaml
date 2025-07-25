@@ -36,6 +36,9 @@ spec:
             ignoreMissingValueFiles: true
             valuesObject:
               role: cache-controller
+              image:
+                tag: latest
+                pullPolicy: Always
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
