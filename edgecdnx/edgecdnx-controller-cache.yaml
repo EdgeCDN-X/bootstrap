@@ -12,7 +12,7 @@ spec:
     - clusters:
         values:
           chart: edgecdnx-controller
-          chartVersion: 0.5.1
+          chartVersion: 0.5.2
           chartRepository: https://edgecdn-x.github.io/helm-charts/
           namespace: edgecdnx-controller-system
         selector:
@@ -36,9 +36,6 @@ spec:
             ignoreMissingValueFiles: true
             valuesObject:
               role: cache-controller
-              image:
-                tag: latest
-                pullPolicy: Always
       destination:
         namespace: "{{ .values.namespace }}"
         server: "{{ .server }}"
