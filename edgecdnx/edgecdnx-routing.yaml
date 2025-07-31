@@ -65,20 +65,20 @@ spec:
                       configBlock: |-
                         lameduck 5s
                     - name: edgecdnxprefixlist
-                      parameters: edgecdnx-routing
+                      parameters: edgecdnx
                     - name: geoip
                       parameters: /etc/edgecdnx/geolookup/GeoLite2-City.mmdb
                       configBlock: |
                         edns-subnet
                     - name: edgecdnxgeolookup
                       configBlock: |
-                        namespace edgecdnx-routing
+                        namespace edgecdnx
                         consulEndpoint http://edgecdnx-consul-consul-server:8500
                         consulcachettl 5s
                         recordttl 30
                     - name: edgecdnxservices
                       configBlock: |
-                        namespace edgecdnx-routing
+                        namespace edgecdnx
                         soa {{- range .clusters -}}{{ if eq .name $.name }} ns{{ index .metadata.annotations "edgecdnx.com/ns" }}{{ end -}}{{- end }}
                         email noc.edgecdnx.com
                         {{- range .clusters }}
