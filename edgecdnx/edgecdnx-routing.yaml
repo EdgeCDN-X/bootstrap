@@ -65,7 +65,7 @@ spec:
                       configBlock: |-
                         lameduck 5s
                     - name: edgecdnxprefixlist
-                      parameters: {{ index .metadata.annotations "edgecdnx.com/namespace" }}
+                      parameters: '{{ index .metadata.annotations "edgecdnx.com/namespace" }}'
                     - name: geoip
                       parameters: /etc/edgecdnx/geolookup/GeoLite2-City.mmdb
                       configBlock: |
@@ -85,7 +85,7 @@ spec:
                         ns ns{{ index .metadata.annotations "edgecdnx.com/ns" }} {{ index .metadata.annotations "edgecdnx.com/public-ip" }}
                         {{- end }}
                   zones:  
-                    - zone: '{{ index .metadata.annotations "edgecdnx.com/basedomain" }}.'
+                    - zone: '{{ index .metadata.annotations "edgecdnx.com/basedomain" }}'
               initContainers:
                 - name: edgecdnx-mmdb-init
                   image: curlimages/curl:8.14.1
