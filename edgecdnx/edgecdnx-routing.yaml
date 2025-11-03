@@ -48,7 +48,7 @@ spec:
             valuesObject:
               image:
                 repository: fr6nco/coredns
-                tag: 1.12.1-ex-2
+                tag: 1.12.1-ex-3
                 pullPolicy: Always
               serviceType: LoadBalancer
               service:
